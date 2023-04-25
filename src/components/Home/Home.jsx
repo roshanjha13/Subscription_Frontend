@@ -32,7 +32,7 @@ const Home = () => {
             alignItems={['center', 'flex-end']}
             spacing="8"
           >
-            <Heading children="Leran From the Experts" size={'2xl'} />
+            <Heading children="Learn From the Experts" size={'2xl'} />
             <Text
               fontStyle={'2x1'}
               fontFamily="cursive"
