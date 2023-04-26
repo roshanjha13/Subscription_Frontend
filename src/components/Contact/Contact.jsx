@@ -56,7 +56,7 @@ const Contact = () => {
             />
           </Box>
           <Button my="4" colorScheme={'yellow'} type="submit">
-            Send MAil
+            Send
           </Button>
           <Box my="4">
             Request For A Course ?

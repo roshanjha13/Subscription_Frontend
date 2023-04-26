@@ -56,7 +56,7 @@ const Request = () => {
             />
           </Box>
           <Button my="4" colorScheme={'yellow'} type="submit">
-            Send MAil
+            Send
           </Button>
           <Box my="4">
             See Available Courses!{' '}
