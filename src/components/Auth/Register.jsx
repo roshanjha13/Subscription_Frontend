@@ -96,7 +96,6 @@ const Register = () => {
               accept="image/*"
               required
               id="chooseAvatar"
-              value={password}
               type={'file'}
               focusBorderColor="yellow.500"
               css={fileUploadStyle}
