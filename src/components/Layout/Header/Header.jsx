@@ -13,6 +13,8 @@ import {
 } from '@chakra-ui/react';
 import { RiDashboardFill, RiLogoutBoxLine, RiMenu5Fill } from 'react-icons/ri';
 import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { logout } from '../../../redux/action/user';
 
 const LinkButton = ({ url = '/', title = 'Home', onClose }) => (
   <Link onClick={onClose} to={url}>
@@ -22,10 +24,11 @@ const LinkButton = ({ url = '/', title = 'Home', onClose }) => (
 
 const Header = ({ isAuthenticated = false, user }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const dispatch = useDispatch();
 
   const logoutHandler = () => {
-    console.log('logout');
     onClose();
+    dispatch(logout());
   };
   return (
     <>
@@ -78,16 +81,13 @@ const Header = ({ isAuthenticated = false, user }) => {
                           </Button>
                         </Link>
                         <p></p>
-                        <Link to="/logout">
-                          <Button
-                            colorScheme={'yellow'}
-                            onClick={logoutHandler}
-                          >
-                            <RiLogoutBoxLine />
-                            Logout
-                          </Button>
-                        </Link>
+                        {/* <Link to="/logout"> */}
+                        <Button variant={'ghost'} onClick={logoutHandler}>
+                          <RiLogoutBoxLine />
+                          Logout
+                        </Button>
                       </HStack>
+
                       {user && user.role === 'admin' && (
                         <Link onClick={onClose} to="/admin/dashboard">
                           <Button colorScheme={'purple'} variant="ghost">
