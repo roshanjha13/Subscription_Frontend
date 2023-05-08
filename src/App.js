@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Home from './components/Home/Home';
 import Header from './components/Layout/Header/Header';
@@ -23,13 +23,37 @@ import Dashboard from './components/Admin/Dashboard/Dashboard';
 import Users from './components/Admin/Users/Users';
 import CreateCourse from './components/Admin/CreateCourse/CreateCourse';
 import AdminCourses from './components/Admin/AdminCourses/AdminCourses';
+import { useDispatch, useSelector } from 'react-redux';
+import toast, { Toaster } from 'react-hot-toast';
+import { loadUser } from './redux/action/user';
+
 function App() {
   window.addEventListener('contextmenu', e => {
     e.preventDefault();
   });
+
+  const { isAuthenticated, user, message, error } = useSelector(
+    state => state.user
+  );
+  const dispatch = useDispatch();
+  useEffect(() => {
+    if (error) {
+      toast.error(error);
+      dispatch({ type: 'clearError' });
+    }
+    if (message) {
+      toast.success(message);
+      dispatch({ type: 'clearMessage' });
+    }
+  }, [dispatch, error, message]);
+
+  useEffect(() => {
+    dispatch(loadUser());
+  }, [dispatch]);
+
   return (
     <Router>
-      <Header />
+      <Header isAuthenticated={isAuthenticated} user={user} />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/courses" element={<Courses />} />
@@ -59,6 +83,7 @@ function App() {
         <Route path="/admin/createcourse" element={<CreateCourse />} />
       </Routes>
       <Footer />
+      <Toaster />
     </Router>
   );
 }

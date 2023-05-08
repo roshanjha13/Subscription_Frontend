@@ -80,13 +80,12 @@ const CourseModal = ({
               {lectures.map((item, i) => (
                 <VideoCard
                   key={i}
-                  title={item.title}
-                  description={item.description}
+                  title="React Course"
+                  description="This is intro"
                   num={i + 1}
-                  lectureId={item._id}
+                  lectureId="457"
                   courseId={id}
                   deleteButtonHandler={deleteButtonHandler}
-                  loading={loading}
                 />
               ))}
             </Box>
