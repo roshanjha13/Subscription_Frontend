@@ -25,24 +25,7 @@ import { Link } from 'react-router-dom';
 import { fileUploadCss } from '../Auth/Register';
 import { useState } from 'react';
 
-const Profile = () => {
-  const user = {
-    name: 'Roshan',
-    email: 'roshan@gmail.com',
-    createdAt: String(new Date().toISOString()),
-    role: 'user',
-    subscription: {
-      status: 'undefined',
-    },
-    playlist: [
-      {
-        course: 'sadsad',
-        poster:
-          'https://hips.hearstapps.com/hmg-prod/images/cute-baby-animals-1558535060.jpg?crop=1.00xw:0.669xh;0,0.158xh&resize=1200:*',
-      },
-    ],
-  };
-
+const Profile = ({ user }) => {
   const removeFromPlaylistHandler = id => {
     console.log(id);
   };
@@ -63,7 +46,7 @@ const Profile = () => {
         padding="8"
       >
         <VStack>
-          <Avatar boxSize={'48'} />
+          <Avatar boxSize={'48'} src={user.avatar.url} />
           <Button onClick={onOpen} colorScheme="yellow" variant={'ghost'}>
             Change Photo
           </Button>
@@ -84,7 +67,7 @@ const Profile = () => {
           {user.role !== 'admin' && (
             <HStack>
               <Text children="Subscription" fontWeight={'bold'} />
-              {user.subscription.status === 'active' ? (
+              {user.subscription && user.subscription.status === 'active' ? (
                 <Button color={'yellow.500'} variant="unstyled">
                   Cancel Subscription
                 </Button>
