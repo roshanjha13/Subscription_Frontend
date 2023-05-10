@@ -6,7 +6,7 @@ import Courses from './components/Courses/Courses';
 import Footer from './components/Layout/Footer/Footer';
 import Login from './components/Auth/Login';
 import Register from './components/Auth/Register';
-import ForgotPassword from './components/Auth/ForgotPassword';
+
 import ResetPassWord from './components/Auth/ResetPassWord';
 import Contact from './components/Contact/Contact';
 import Request from './components/Request/Request';
@@ -28,6 +28,7 @@ import toast, { Toaster } from 'react-hot-toast';
 import { loadUser } from './redux/action/user';
 import { ProtectedRoute } from 'protected-route-react';
 import Loader from './components/Layout/Loader/loader';
+import ForgetPassword from './components/Auth/ForgetPassword';
 function App() {
   window.addEventListener('contextmenu', e => {
     e.preventDefault();
@@ -114,8 +115,28 @@ function App() {
                 </ProtectedRoute>
               }
             />
-            <Route path="/forgotpassword" element={<ForgotPassword />} />
-            <Route path="/resetpassword/:token" element={<ResetPassWord />} />
+            <Route
+              path="/forgetpassword"
+              element={
+                <ProtectedRoute
+                  isAuthenticated={!isAuthenticated}
+                  redirect="/profile"
+                >
+                  <ForgetPassword />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/resetpassword/:token"
+              element={
+                <ProtectedRoute
+                  isAuthenticated={!isAuthenticated}
+                  redirect="/profile"
+                >
+                  <ResetPassWord />
+                </ProtectedRoute>
+              }
+            />
 
             <Route
               path="/subscribe"

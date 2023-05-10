@@ -1,24 +1,18 @@
 import { Button, Container, Heading, Input, VStack } from '@chakra-ui/react';
-import React, { useEffect, useState } from 'react';
-import { toast } from 'react-hot-toast';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
-import { resetPassword } from '../../redux/action/profile';
-import { useNavigate } from 'react-router-dom';
+import { forgetPassword } from '../../redux/action/profile';
+import { useEffect } from 'react';
+import { toast } from 'react-hot-toast';
 
-const ResetPassWord = () => {
-  const [password, setPassword] = useState('');
-  const params = useParams();
-  console.log(params.token);
-
+const ForgetPassword = () => {
+  const [email, setEmail] = useState('');
   const { loading, message, error } = useSelector(state => state.profile);
-
-  const navigate = useNavigate();
 
   const dispatch = useDispatch();
   const submitHandler = e => {
     e.preventDefault();
-    dispatch(resetPassword(params.token, password));
+    dispatch(forgetPassword(email));
   };
 
   useEffect(() => {
@@ -29,7 +23,6 @@ const ResetPassWord = () => {
     if (message) {
       toast.success(message);
       dispatch({ type: 'clearMessage' });
-      navigate('/login');
     }
   }, [dispatch, error, message]);
 
@@ -37,7 +30,7 @@ const ResetPassWord = () => {
     <Container py={'16'} h="90vh">
       <form onSubmit={submitHandler}>
         <Heading
-          children="Reset Password"
+          children="Forget Password"
           my="16"
           textTransform={'uppercase'}
           textAlign={['center', 'left']}
@@ -45,11 +38,11 @@ const ResetPassWord = () => {
         <VStack spacing={'8'}>
           <Input
             required
-            id="password"
-            value={password}
-            onChange={e => setPassword(e.target.value)}
-            placeholder="Enter new Password"
-            type={'password'}
+            id="email"
+            value={email}
+            onChange={e => setEmail(e.target.value)}
+            placeholder="abc@gmail.com"
+            type={'email'}
             focusBorderColor="yellow.500"
           />
           <Button
@@ -58,11 +51,12 @@ const ResetPassWord = () => {
             w={'full'}
             colorScheme="yellow"
           >
-            Reset Password
+            Send Reset Link
           </Button>
         </VStack>
       </form>
     </Container>
   );
 };
-export default ResetPassWord;
+
+export default ForgetPassword;
