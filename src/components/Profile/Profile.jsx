@@ -24,15 +24,38 @@ import { RiDeleteBin7Fill } from 'react-icons/ri';
 import { Link } from 'react-router-dom';
 import { fileUploadCss } from '../Auth/Register';
 import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { updateProfilePicture } from '../../redux/action/profile';
+import { loadUser } from '../../redux/action/user';
+import { useEffect } from 'react';
+import { toast } from 'react-hot-toast';
 
 const Profile = ({ user }) => {
+  const dispatch = useDispatch();
+  const { loading, error, message } = useSelector(state => state.profile);
+
   const removeFromPlaylistHandler = id => {
     console.log(id);
   };
-
-  const changeImageSubmitHandler = (e, image) => {
+  const changeImageSubmitHandler = async (e, image) => {
     e.preventDefault();
+    const myForm = new FormData();
+    myForm.append('file', image);
+    await dispatch(updateProfilePicture(myForm));
+    dispatch(loadUser());
   };
+
+  useEffect(() => {
+    if (error) {
+      toast.error(error);
+      dispatch({ type: 'clearError' });
+    }
+    if (message) {
+      toast.success(message);
+      dispatch({ type: 'clearMessage' });
+    }
+  }, [dispatch, error, message]);
+
   const { isOpen, onClose, onOpen } = useDisclosure();
 
   return (
@@ -84,6 +107,7 @@ const Profile = ({ user }) => {
             <Link to="/updateprofile">
               <Button>Update Profile</Button>
             </Link>
+
             <Link to="/changepassword">
               <Button>Change Password</Button>
             </Link>
@@ -92,6 +116,7 @@ const Profile = ({ user }) => {
       </Stack>
 
       <Heading children="Playlist" size={'md'} my="8" />
+
       {user.playlist.length > 0 && (
         <Stack
           direction={['column', 'row']}
@@ -127,12 +152,19 @@ const Profile = ({ user }) => {
         changeImageSubmitHandler={changeImageSubmitHandler}
         isOpen={isOpen}
         onClose={onClose}
+        loading={loading}
       />
     </Container>
   );
 };
+export default Profile;
 
-function ChangePhotoBox({ isOpen, onClose, changeImageSubmitHandler }) {
+function ChangePhotoBox({
+  isOpen,
+  onClose,
+  changeImageSubmitHandler,
+  loading,
+}) {
   const [image, setImage] = useState('');
   const [imagePrev, setImagePrev] = useState('');
 
@@ -141,6 +173,7 @@ function ChangePhotoBox({ isOpen, onClose, changeImageSubmitHandler }) {
     const reader = new FileReader();
 
     reader.readAsDataURL(file);
+
     reader.onload = () => {
       setImagePrev(reader.result);
       setImage(file);
@@ -169,7 +202,12 @@ function ChangePhotoBox({ isOpen, onClose, changeImageSubmitHandler }) {
                   css={{ '&::file-selector-button': fileUploadCss }}
                   onChange={changeImage}
                 />
-                <Button w={'full'} colorScheme="yellow" type="submit">
+                <Button
+                  isLoading={loading}
+                  w={'full'}
+                  colorScheme="yellow"
+                  type="submit"
+                >
                   Change
                 </Button>
               </VStack>
@@ -185,4 +223,3 @@ function ChangePhotoBox({ isOpen, onClose, changeImageSubmitHandler }) {
     </Modal>
   );
 }
-export default Profile;
