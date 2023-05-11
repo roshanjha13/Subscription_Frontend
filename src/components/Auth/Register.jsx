@@ -66,7 +66,7 @@ const Register = () => {
             <Avatar src={imagePrev} size={'2xl'} />
           </Box>
           <Box my={'4'}>
-            <FormLabel htmlFor="name" children="Name Address" />
+            <FormLabel htmlFor="name" children="Name" />
             <Input
               required
               id="name"

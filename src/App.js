@@ -6,7 +6,6 @@ import Courses from './components/Courses/Courses';
 import Footer from './components/Layout/Footer/Footer';
 import Login from './components/Auth/Login';
 import Register from './components/Auth/Register';
-
 import ResetPassWord from './components/Auth/ResetPassWord';
 import Contact from './components/Contact/Contact';
 import Request from './components/Request/Request';
@@ -142,13 +141,13 @@ function App() {
               path="/subscribe"
               element={
                 <ProtectedRoute isAuthenticated={isAuthenticated}>
-                  <Subscribe />
+                  <Subscribe user={user} />
                 </ProtectedRoute>
               }
             />
             <Route path="*" element={<Notfound />} />
             <Route path="/paymentfail" element={<PaymentFail />} />
-            <Route path="/paymentsuccess" element={<PaymentSuccess />} />
+            <Route path="/paymentsucsess" element={<PaymentSuccess />} />
 
             {/* admin routes */}
             <Route
