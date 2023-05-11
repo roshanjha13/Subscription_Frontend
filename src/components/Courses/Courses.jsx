@@ -17,6 +17,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { getAllCourses } from '../../redux/action/course';
 import { toast } from 'react-hot-toast';
+import { addToPlaylist } from '../../redux/action/profile';
+import { loadUser } from '../../redux/action/user';
 
 const Course = ({
   views,
@@ -27,6 +29,8 @@ const Course = ({
   creator,
   description,
   lectureCount,
+  category,
+  loading,
 }) => {
   return (
     <VStack className="course" alignItems={['center', 'flex-start']}>
@@ -40,6 +44,7 @@ const Course = ({
         children={title}
       />
       <Text noOfLines={2} children={description} />
+      <Text fontWeight={'bold'} textTransform="uppercase" children={category} />
       <HStack>
         <Text
           fontWeight={'bold'}
@@ -66,14 +71,15 @@ const Course = ({
       <Stack direction={['column', 'row']} alignItems="center">
         <Link to={`./course/${id}`}>
           <Button colorScheme={'yellow'}>Watch Now</Button>
-          <Button
-            variant={'ghost'}
-            colorScheme={'yellow'}
-            onClick={() => addToPlaylistHandler(id)}
-          >
-            Add To playlist
-          </Button>
         </Link>
+        <Button
+          isLoading={loading}
+          variant={'ghost'}
+          colorScheme={'yellow'}
+          onClick={() => addToPlaylistHandler(id)}
+        >
+          Add To playlist
+        </Button>
       </Stack>
     </VStack>
   );
@@ -83,8 +89,9 @@ const Courses = () => {
   const [keyword, setKeyword] = useState('');
   const [category, setCategory] = useState('');
 
-  const addToPlaylistHandler = courseId => {
-    console.log('Added to Playlist', courseId);
+  const addToPlaylistHandler = async courseId => {
+    await dispatch(addToPlaylist(courseId));
+    dispatch(loadUser());
   };
 
   const categories = [
@@ -97,16 +104,22 @@ const Courses = () => {
 
   const dispatch = useDispatch();
 
-  const { courses, error } = useSelector(state => state.course);
+  const { courses, error, message, loading } = useSelector(
+    state => state.course
+  );
 
   useEffect(() => {
     dispatch(getAllCourses(category, keyword));
 
     if (error) {
       toast.error(error);
-      dispatch.error({ type: 'clearError' });
+      dispatch({ type: 'clearError' });
     }
-  }, [category, keyword, dispatch, error]);
+    if (message) {
+      toast.success(message);
+      dispatch({ type: 'clearMessage' });
+    }
+  }, [category, keyword, dispatch, error, message]);
   return (
     <Container minH={'95vh'} maxH="container.lg" padding={'8'}>
       <Heading children="All Courses" m={'8'} />
@@ -148,9 +161,11 @@ const Courses = () => {
               views={items.views}
               imageSrc={items.poster.url}
               id={items._id}
+              category={items.category}
               creator={items.createdBy}
               lectureCount={items.numOfVideos}
               addToPlaylistHandler={addToPlaylistHandler}
+              loading={loading}
             />
           ))
         ) : (
