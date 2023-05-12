@@ -141,3 +141,20 @@ export const updateUserRole = id => async dispatch => {
     });
   }
 };
+
+export const getDashBoardStat = () => async dispatch => {
+  try {
+    const config = {
+      withCredentials: true,
+    };
+    dispatch({ type: 'getAdminStatsRequest' });
+    const { data } = await axios.get(`${server}/admin/stats`, config);
+
+    dispatch({ type: 'getAdminStatsSuccess', payload: data });
+  } catch (error) {
+    dispatch({
+      type: 'getAdminStatsFail',
+      payload: error.response.data.message,
+    });
+  }
+};
