@@ -1,36 +1,37 @@
-import { Box, HStack, Heading, Stack, VStack } from '@chakra-ui/react';
+import { Box, Heading, HStack, Stack, VStack } from '@chakra-ui/react';
 import React from 'react';
 import {
-  TiSocialInstagramCircular,
   TiSocialYoutubeCircular,
+  TiSocialInstagramCircular,
 } from 'react-icons/ti';
 import { DiGithub } from 'react-icons/di';
 const Footer = () => {
   return (
     <Box padding={'4'} bg="blackAlpha.900" minH={'10vh'}>
       <Stack direction={['column', 'row']}>
-        <VStack alignItems={['center', 'flex-start']}>
-          <Heading children="All Right Reserved" color={'white'} />
+        <VStack alignItems={['center', 'flex-start']} width="full">
+          <Heading children="All Rights Reserved" color={'white'} />
           <Heading
             fontFamily={'body'}
             size="sm"
-            children="@ roshan kumar jha"
+            children="@ roshan Kumar Jha"
             color={'yellow.400'}
           />
         </VStack>
+
         <HStack
           spacing={['2', '10']}
           justifyContent="center"
           color={'white'}
           fontSize="50"
         >
-          <a href="https://www.youtube.com/:" target={'_blank'}>
+          <a href="https://youtube.com/6packprogrammer" target={'blank'}>
             <TiSocialYoutubeCircular />
           </a>
-          <a href="https://www.instagram.com/" target={'_blank'}>
+          <a href="https://instagram.com/meabhisingh" target={'blank'}>
             <TiSocialInstagramCircular />
           </a>
-          <a href="https://github.com/roshanjha26" target={'_blank'}>
+          <a href="https://github.com/meabhisingh" target={'blank'}>
             <DiGithub />
           </a>
         </HStack>
@@ -38,4 +39,5 @@ const Footer = () => {
     </Box>
   );
 };
+
 export default Footer;
