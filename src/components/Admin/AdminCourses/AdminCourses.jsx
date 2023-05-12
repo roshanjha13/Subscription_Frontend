@@ -15,25 +15,16 @@ import {
   Tr,
   useDisclosure,
 } from '@chakra-ui/react';
-import React from 'react';
+import React, { useEffect } from 'react';
 import cursor from '../../../assests/images/cursor.png';
 import Sidebar from '../Sidebar';
 import { RiDeleteBin7Fill } from 'react-icons/ri';
 import CourseModal from './CourseModal';
+import { useDispatch, useSelector } from 'react-redux';
+import { getAllCourses } from '../../../redux/action/course';
+
 const AdminCourses = () => {
-  const courses = [
-    {
-      _id: 'asdasdfasd',
-      title: 'React Course',
-      category: 'Web Development',
-      poster: {
-        url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQqAdLIdd3o_EzDbEA9bCvgbc4XpgI1txiTUQ&usqp=CAU',
-      },
-      createdBy: 'Roshan jha',
-      views: 123,
-      numOfVideos: 12,
-    },
-  ];
+  const { courses } = useSelector(state => state.course);
 
   const courseDetailsHandler = userId => {
     onOpen();
@@ -50,7 +41,13 @@ const AdminCourses = () => {
     e.preventDefault();
   };
 
+  const dispatch = useDispatch(getAllCourses());
   const { isOpen, onClose, onOpen } = useDisclosure();
+
+  useEffect(() => {
+    dispatch(getAllC);
+  }, [dispatch]);
+
   return (
     <Grid
       css={{
