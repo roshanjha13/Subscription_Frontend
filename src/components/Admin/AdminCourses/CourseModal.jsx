@@ -27,7 +27,7 @@ const CourseModal = ({
   deleteButtonHandler,
   addLectureHandler,
   courseTitle,
-  lectures = [1, 2, 3, 4, 5, 6, 7, 8],
+  lectures = [],
   loading,
 }) => {
   const [title, setTitle] = useState('');
@@ -80,12 +80,13 @@ const CourseModal = ({
               {lectures.map((item, i) => (
                 <VideoCard
                   key={i}
-                  title="React Course"
-                  description="This is intro"
+                  title={item.title}
+                  description={item.description}
                   num={i + 1}
-                  lectureId="457"
+                  lectureId={item._id}
                   courseId={id}
                   deleteButtonHandler={deleteButtonHandler}
+                  isLoading={loading}
                 />
               ))}
             </Box>
@@ -143,6 +144,7 @@ const CourseModal = ({
                     w="full"
                     colorScheme={'purple'}
                     type="submit"
+                    loading={loading}
                   >
                     Upload
                   </Button>
