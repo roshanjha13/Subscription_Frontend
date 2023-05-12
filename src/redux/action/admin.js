@@ -107,3 +107,37 @@ export const getAllUser = (courseId, lectureId) => async dispatch => {
     });
   }
 };
+
+export const deleteUser = id => async dispatch => {
+  try {
+    const config = {
+      withCredentials: true,
+    };
+    dispatch({ type: 'deleteUserRequest' });
+    const { data } = await axios.delete(`${server}/admin/user/${id}`, config);
+
+    dispatch({ type: 'deleteUserSuccess', payload: data.message });
+  } catch (error) {
+    dispatch({
+      type: 'deleteUserFail',
+      payload: error.response.data.message,
+    });
+  }
+};
+
+export const updateUserRole = id => async dispatch => {
+  try {
+    const config = {
+      withCredentials: true,
+    };
+    dispatch({ type: 'updateUserRoleRequest' });
+    const { data } = await axios.put(`${server}/admin/user/${id}`, {}, config);
+
+    dispatch({ type: 'updateUserRoleSuccess', payload: data.message });
+  } catch (error) {
+    dispatch({
+      type: 'updateUserRoleFail',
+      payload: error.response.data.message,
+    });
+  }
+};

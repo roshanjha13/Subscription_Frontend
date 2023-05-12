@@ -15,6 +15,27 @@ export const adminReducer = createReducer(
       state.error = action.payload;
     },
 
+    deleteUserRequest: state => {
+      state.loading = true;
+    },
+    deleteUserSuccess: (state, action) => {
+      state.loading = false;
+      state.message = action.payload;
+    },
+
+    updateUserRoleRequest: state => {
+      state.loading = true;
+    },
+    updateUserRoleSuccess: (state, action) => {
+      state.loading = false;
+      state.message = action.payload;
+    },
+
+    updateUserRoleFail: (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+    },
+
     createCourseRequest: state => {
       state.loading = true;
     },
