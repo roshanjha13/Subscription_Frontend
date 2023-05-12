@@ -19,21 +19,23 @@ import React from 'react';
 import { useState } from 'react';
 import { RiDeleteBin7Fill } from 'react-icons/ri';
 import { fileUploadCss } from '../../Auth/Register';
+import { useSelector } from 'react-redux';
 
 const CourseModal = ({
   isOpen,
   onClose,
   id,
-  deleteButtonHandler,
+  deleteUserHandler,
   addLectureHandler,
   courseTitle,
   lectures = [],
-  loading,
 }) => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [video, setVideo] = useState('');
   const [videoPrev, setVideoPrev] = useState('');
+
+  const { loading } = useSelector(state => state.admin);
 
   const changeVideoHandler = e => {
     const file = e.target.files[0];
@@ -85,8 +87,8 @@ const CourseModal = ({
                   num={i + 1}
                   lectureId={item._id}
                   courseId={id}
-                  deleteButtonHandler={deleteButtonHandler}
-                  isLoading={loading}
+                  deleteUserHandler={deleteUserHandler}
+                  loading={loading}
                 />
               ))}
             </Box>
@@ -144,7 +146,6 @@ const CourseModal = ({
                     w="full"
                     colorScheme={'purple'}
                     type="submit"
-                    loading={loading}
                   >
                     Upload
                   </Button>
@@ -170,7 +171,7 @@ function VideoCard({
   num,
   lectureId,
   courseId,
-  deleteButtonHandler,
+  deleteUserHandler,
   loading,
 }) {
   return (
@@ -190,7 +191,7 @@ function VideoCard({
       <Button
         isLoading={loading}
         color={'purple.600'}
-        onClick={() => deleteButtonHandler(courseId, lectureId)}
+        onClick={() => deleteUserHandler(courseId, lectureId)}
       >
         <RiDeleteBin7Fill />
       </Button>
