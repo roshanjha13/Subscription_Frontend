@@ -52,19 +52,19 @@ const Header = ({ isAuthenticated = false, user }) => {
           <DrawerHeader borderBottomWidth={'1px'}>Course Bundler</DrawerHeader>
           <DrawerBody>
             <VStack spacing={'4'} alignItems="flex-start">
-              <LinkButton onClick={onClose} url="/" title="Home" />
+              <LinkButton onClose={onClose} url="/" title="Home" />
               <LinkButton
-                onClick={onClose}
+                onClose={onClose}
                 url="/courses"
                 title="All Courses"
               />
               <LinkButton
-                onClick={onClose}
+                onClose={onClose}
                 url="/request"
                 title="Request a course"
               />
-              <LinkButton onClick={onClose} url="/contact" title="Contact US" />
-              <LinkButton onClick={onClose} url="/about" title="About US" />
+              <LinkButton onClose={onClose} url="/contact" title="Contact US" />
+              <LinkButton onClose={onClose} url="/about" title="About US" />
               <HStack
                 justifyContent={'space-evenly'}
                 position="absolute"
@@ -103,7 +103,7 @@ const Header = ({ isAuthenticated = false, user }) => {
                     <Link onClick={onClose} to="/login">
                       <Button colorScheme={'yellow'}>Login</Button>
                     </Link>
-                    <p></p>
+                    <p>OR</p>
                     <Link onClick={onClose} to="/register">
                       <Button colorScheme={'yellow'}>Sign up</Button>
                     </Link>

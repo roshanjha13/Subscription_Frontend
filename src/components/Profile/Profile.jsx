@@ -21,11 +21,12 @@ import {
 
 import React from 'react';
 import { RiDeleteBin7Fill } from 'react-icons/ri';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { fileUploadCss } from '../Auth/Register';
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
+  deleteMyProfile,
   removeFromPlaylist,
   updateProfilePicture,
 } from '../../redux/action/profile';
@@ -41,6 +42,8 @@ const Profile = ({ user }) => {
     message: subscriptionMessage,
     error: subscriptionError,
   } = useSelector(state => state.subscription);
+
+  const navigate = useNavigate();
 
   const removeFromPlaylistHandler = async id => {
     await dispatch(removeFromPlaylist(id));
@@ -59,6 +62,12 @@ const Profile = ({ user }) => {
 
   const cancelSubscriptionHandler = () => {
     dispatch(cancelSubscription());
+  };
+
+  const removeProfileHandler = async () => {
+    await dispatch(deleteMyProfile());
+    dispatch(loadUser());
+    navigate('/register');
   };
 
   useEffect(() => {
@@ -141,6 +150,10 @@ const Profile = ({ user }) => {
             <Link to="/changepassword">
               <Button>Change Password</Button>
             </Link>
+
+            <Button isLoading={loading} onClick={removeProfileHandler}>
+              Delete User :<RiDeleteBin7Fill />
+            </Button>
           </Stack>
         </VStack>
       </Stack>

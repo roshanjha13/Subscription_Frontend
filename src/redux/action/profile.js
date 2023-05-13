@@ -28,30 +28,6 @@ export const updateProfile = (name, email) => async dispatch => {
   }
 };
 
-// export const updateProfilePicture = formdata => async dispatch => {
-//   try {
-//     dispatch({ type: 'updateProfilePictureRequest' });
-
-//     const { data } = await axios.put(
-//       `${server}/updateprofilepicture`,
-//       formdata,
-//       {
-//         headers: {
-//           'Content-type': 'multipart/form-data',
-//         },
-//         withCredentials: true,
-//       }
-//     );
-
-//     dispatch({ type: 'updateProfilePictureSuccess', payload: data.message });
-//   } catch (error) {
-//     dispatch({
-//       type: 'updateProfilePictureFail',
-//       payload: error.response.data.message,
-//     });
-//   }
-// };
-
 export const updateProfilePicture = formdata => async dispatch => {
   try {
     dispatch({ type: 'updateProfilePictureRequest' });
@@ -199,6 +175,25 @@ export const removeFromPlaylist = id => async dispatch => {
   } catch (error) {
     dispatch({
       type: 'removeToPlaylistFail',
+      payload: error.response.data.message,
+    });
+  }
+};
+
+export const deleteMyProfile = () => async dispatch => {
+  try {
+    dispatch({ type: 'deleteProfileRequest' });
+
+    const config = {
+      withCredentials: true,
+    };
+
+    const { data } = await axios.delete(`${server}/me`, config);
+
+    dispatch({ type: 'deleteProfileSuccess', payload: data.message });
+  } catch (error) {
+    dispatch({
+      type: 'deleteProfileFail',
       payload: error.response.data.message,
     });
   }
