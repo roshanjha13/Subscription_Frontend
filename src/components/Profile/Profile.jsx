@@ -35,6 +35,7 @@ import { toast } from 'react-hot-toast';
 
 const Profile = ({ user }) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { loading, error, message } = useSelector(state => state.profile);
 
   const {
@@ -42,8 +43,6 @@ const Profile = ({ user }) => {
     message: subscriptionMessage,
     error: subscriptionError,
   } = useSelector(state => state.subscription);
-
-  const navigate = useNavigate();
 
   const removeFromPlaylistHandler = async id => {
     await dispatch(removeFromPlaylist(id));
