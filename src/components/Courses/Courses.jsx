@@ -95,11 +95,13 @@ const Courses = () => {
   };
 
   const categories = [
-    'web development',
-    'Artificial Intelligence',
-    'Machine Learning',
-    'DataStructure',
-    'Android Development',
+    'Web Development',
+    'Artificial Intellegence',
+    'Data Structure & Algorithm',
+    'App Development',
+    'Data Science',
+    'Game Development',
+    'React Native',
   ];
 
   const dispatch = useDispatch();

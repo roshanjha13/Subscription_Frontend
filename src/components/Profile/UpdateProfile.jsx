@@ -32,6 +32,7 @@ const UpdateProfile = ({ user }) => {
         />
         <VStack spacing={'8'}>
           <Input
+            required
             value={name}
             onChange={e => setName(e.target.value)}
             placeholder="Name"
