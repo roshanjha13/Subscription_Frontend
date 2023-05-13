@@ -7,7 +7,7 @@ const Loader = ({ color = 'yellow.500' }) => {
       <div style={{ transform: 'scale(2)' }}>
         <Spinner
           thickness="2px"
-          speed="0.01s"
+          speed="0.001s"
           emptyColor="transparent"
           color={color}
           size="xl"
