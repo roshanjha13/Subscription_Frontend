@@ -19,5 +19,4 @@ const store = configureStore({
 });
 
 export default store;
-// export const server = 'https://coursebundler-pdii.onrender.com/api/v1';
-export const server = 'https://subscription-backend-kappa.vercel.app/api/v1';
+export const server = 'https://coursebundler-pdii.onrender.com/api/v1';
